@@ -1,0 +1,10 @@
+  <div class="page1">
+      <h1>Digitally crafted</h1>
+      <!-- <section> -->
+        <!-- <img src="/assets/videofinal-unscreen.gif" alt=""> -->
+        <h2>Brand experiences</h2>
+        <!-- <div class="video-wrapper"></div> -->
+      <!-- </section> -->
+
+      <video autoplay muted loop src="/assets/video4.mp4"></video>
+    </div>

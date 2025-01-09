@@ -27,9 +27,9 @@ init()
 
 var crsr = document.querySelector(".cursor")
 var main = document.querySelector("#main")
-document.addEventListener("mousemove",function(dets){
-  crsr.style.left = dets.x + 20+"px"
-  crsr.style.top = dets.y + 20+"px"
+document.addEventListener("mousemove",function(e){
+  crsr.style.left = e.x + 20+"px"
+  crsr.style.top = e.y + 20+"px"
 })
 
 gsap.from(".page1 h1,.page1 h2", {
@@ -43,7 +43,6 @@ var tl = gsap.timeline({
   scrollTrigger: {
       trigger: ".page1 h1",
       scroller: "#main",
-      // markers:true,
       start: "top 27%",
       end: "top 0",
       scrub: 3
@@ -63,7 +62,6 @@ var tl2 = gsap.timeline({
   scrollTrigger: {
       trigger: ".page1 h1",
       scroller: "#main",
-      // markers:true,
       start: "top -115%",
       end: "top -120%",
       scrub: 3
@@ -77,7 +75,6 @@ var tl3 = gsap.timeline({
   scrollTrigger: {
       trigger: ".page1 h1",
       scroller: "#main",
-      // markers:true,
       start: "top -280%",
       end: "top -300%",
       scrub: 3
@@ -97,6 +94,7 @@ boxes.forEach(function(elem){
       crsr.style.height = "370px"
       crsr.style.borderRadius = "0"
       crsr.style.backgroundImage = `url(${att})`
+      crsr.style.transition = "all 1s"
   })
   elem.addEventListener("mouseleave",function(){
       elem.style.backgroundColor = "transparent"
@@ -104,17 +102,20 @@ boxes.forEach(function(elem){
       crsr.style.height = "20px"
       crsr.style.borderRadius = "50%"
       crsr.style.backgroundImage = `none`
+      crsr.style.transition = "none"
   })
 })
-
 
 let h4s = document.querySelectorAll("nav h4");
 let purple = document.querySelector(".purple");
 let nav = document.querySelector("nav")
+let h4item = document.querySelector(".h4item")
 h4s.forEach((element)=> {
   element.addEventListener("mouseenter", ()=> {
     purple.style.display = "block"
     purple.style.opacity = 1
+    let navItemtext = element.innerHTML.toString()
+    h4item.innerHTML = navItemtext
   })
   nav.addEventListener("mouseleave", ()=> {
     purple.style.display = "none"
@@ -133,3 +134,71 @@ video.addEventListener("mouseleave", () => {
   crsr.classList.add("cursor");
   crsr.innerHTML = "";
 })
+
+var tl4 = gsap.timeline({
+  scrollTrigger: {
+      trigger: ".page4",
+      scroller: "#main",
+      start: "top -135%",
+      end: "top -150%",
+      scrub: 3
+  }
+})
+tl4.to(".footer", {
+  backgroundColor: "#edbfff",
+})
+
+ScrollTrigger.matchMedia({
+  "(min-width: 1024px)": function() {
+      gsap.timeline({
+          scrollTrigger: {
+              trigger: ".page1 h1",
+              scroller: "#main",
+              start: "top 27%",
+              end: "top 0",
+              scrub: 3,
+          },
+      })
+      .to(".page1 h1", { x: -100 })
+      .to(".page1 h2", { x: 100 })
+      .to(".page1 video", { width: "90%" });
+  },
+  "(min-width: 601px) and (max-width: 1023px)": function() {
+      gsap.timeline({
+          scrollTrigger: {
+              trigger: ".page1 h1",
+              scroller: "#main",
+              start: "top 50%", // Adjust start point for smaller screens
+              end: "top 10%",
+              scrub: 3,
+          },
+      })
+      .to(".page1 h1", { x: -40 }) // Smaller movements for medium screens
+      .to(".page1 h2", { x: 40 })
+      .to(".page1 video", { width: "80%" });
+  },
+  "(max-width: 600px)": function() {
+      gsap.timeline({
+          scrollTrigger: {
+              trigger: ".page1",
+              scroller: "#main",
+              start: "top -5%",
+              end: "top -20%",
+              scrub: 3,
+          },
+      })
+      .to(".page1 h1", { x: -20 }) 
+      .to(".page1 h2", { x: 20 })
+      .to(".page1 video", { width: "80%" })
+      .to("#main", { backgroundColor: "#fff" });
+      gsap.timeline({
+        scrollTrigger : {
+          trigger: ".page3",
+          scroller: "#main",
+          start: "top -25%",
+          end: "top -40%",
+          scrub: 3
+        }
+      })
+  }
+});
